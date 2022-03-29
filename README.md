@@ -1,4 +1,16 @@
 # TP Compilation : Génération d'arbres abstraits
+> BAJT Arthur & LAFFONT Léo
+
+---
+
+tester :
+```shell
+java -cp .\build\libs\I805_TP2_Lambada.jar fr.usmb.m1isc.compilation.tp.Main .\test1.txt
+```
+
+---
+
+# Sujet :
 
 L'objectif du TP est d'utiliser les outils JFlex et CUP pour générer des arbres abstraits correspondant à un sous ensemble du langage **λ-ada**.
 
