@@ -3,6 +3,11 @@
 
 ---
 
+# Exercice 1 :
+On a décider de creer 2 classes :
+- TreeNode : qui représente un noeud à deux sous arbres et a une operation.
+- Leaf : qui est une feuille seule. Aka une valeur seule sans sous arbre ou operation.
+
 tester :
 ```shell
 java -cp .\build\libs\I805_TP2_Lambada.jar fr.usmb.m1isc.compilation.tp.Main .\test1.txt
