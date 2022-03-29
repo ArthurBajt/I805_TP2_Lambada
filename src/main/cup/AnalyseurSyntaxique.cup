@@ -59,7 +59,7 @@ program ::=
 
 // une sequence est une suite d'instructions separes par des point virgules 
 sequence ::= expression:e1 SEMI sequence:e2 {: RESULT = new TreeNode(";",e1,e2); :}
-            | expression:e   {: RESULT = new TreeNode(";",e,new Leaf("")); :}
+            | expression:e   {: RESULT = e; :}
             |
             ;
 
