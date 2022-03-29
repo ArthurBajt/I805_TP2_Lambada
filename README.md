@@ -16,7 +16,8 @@ java -cp .\build\libs\I805_TP2_Lambada.jar fr.usmb.m1isc.compilation.tp.Main .\t
 ---
 # Exercice 2 :
 
-// Todo
+Nous avons simplement eu a implémenter les résultats dans le cup. 
+Cependant on ne peut pour l'instant pas vérifier la cohérence du code.
 
 tester :
 ```shell
