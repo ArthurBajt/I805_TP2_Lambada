@@ -1,7 +1,5 @@
 package fr.usmb.m1isc.compilation.tp;
 
-import jdk.nashorn.internal.ir.Symbol;
-
 public class TreeNode {
 
     private String ope;
