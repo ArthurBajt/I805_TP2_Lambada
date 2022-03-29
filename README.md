@@ -14,6 +14,15 @@ java -cp .\build\libs\I805_TP2_Lambada.jar fr.usmb.m1isc.compilation.tp.Main .\t
 ```
 
 ---
+# Exercice 2 :
+
+// Todo
+
+tester :
+```shell
+java -cp .\build\libs\I805_TP2_Lambada.jar fr.usmb.m1isc.compilation.tp.Main .\test2.txt
+```
+---
 
 # Sujet :
 
