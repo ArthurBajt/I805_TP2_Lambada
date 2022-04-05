@@ -47,6 +47,13 @@ public class TreeNode {
                 code += "\tpop ebx\n";
                 code += "\tmul eax, ebx\n";
                 break;
+            case "+":
+                code += expr1.getCode();
+                code += "\tpush eax\n";
+                code += expr2.getCode();
+                code += "\tpop ebx\n";
+                code += "\tadd eax, ebx\n";
+                break;
             case "/":
                 code += expr1.getCode();
                 code += "\tpush eax\n";
@@ -54,6 +61,34 @@ public class TreeNode {
                 code += "\tpop ebx\n";
                 code += "\tdiv ebx, eax\n";
                 code += "\tmov eax, ebx\n";
+                break;
+            case "-":
+                code += expr1.getCode();
+                code += "\tpush eax\n";
+                if(expr2 != null){
+                    code += expr2.getCode();
+                    code += "\tpop ebx\n";
+                } else {
+                    code += "\tmov ebx, 0\n";
+                }
+                code += "\tsub ebx, eax\n";
+                code += "\tmov eax, ebx\n";
+                break;
+            case "%":
+                code += expr1.getCode();
+                code += "\tpush eax\n";
+                code += expr2.getCode();
+                code += "\tpop ebx\n";
+                code += "\tpush ebx\n";
+                code += "\tdiv ebx, eax\n";
+                code += "\tmul eax, ebx\n";
+                code += "\tpop ebx\n";
+                code += "\tsub ebx, eax\n";
+                code += "\tmov eax, ebx\n";
+                break;
+            case "output":
+                code += expr1.getCode();
+                code += "\tout eax\n";
                 break;
             case ";":
                 code += expr1.getCode();

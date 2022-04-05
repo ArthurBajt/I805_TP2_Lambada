@@ -21,7 +21,11 @@ public class Leaf extends TreeNode{
 
     @Override
     public String getCode(){
-        return "\tmov eax, "+this.value.toString()+"\n";
+        if(value.toString() == "input"){
+            return "\tin eax\n";
+        } else {
+            return "\tmov eax, "+this.value.toString()+"\n";
+        }
     }
 
     @Override
