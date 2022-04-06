@@ -7,6 +7,10 @@ public class TreeNode {
 
     private String ope;
     private TreeNode expr1, expr2;
+    private static int NB_WHILE = 0;
+    private static int NB_IF = 0;
+    private static int NB_COND = 0;
+
 
 
 
@@ -18,16 +22,34 @@ public class TreeNode {
         this.expr2 = expr2;
     }
 
+    public TreeNode getExpr1(){
+        return expr1;
+    }
+
+    public TreeNode getExpr2(){
+        return expr2;
+    }
+
     public ArrayList<String> getVars() {
         ArrayList<String> vars = new ArrayList<>();
         if (ope == "let") {
             vars.add((String) ((Leaf)expr1).getValue());
         } else {
             ArrayList<String> expr1Vars = expr1.getVars();
-            expr1Vars.forEach(var -> vars.add(var));
+            for(int i = 0; i < expr1Vars.size(); ++i){
+                String var = expr1Vars.get(i);
+                if(vars.indexOf(var)==-1){
+                    vars.add(var);
+                }
+            }
             if(expr2 != null) {
                 ArrayList<String> expr2Vars = expr2.getVars();
-                expr2Vars.forEach(var -> vars.add(var));
+                for(int i = 0; i < expr2Vars.size(); ++i){
+                    String var = expr2Vars.get(i);
+                    if(vars.indexOf(var)==-1){
+                        vars.add(var);
+                    }
+                }
             }
         }
         return vars;
@@ -92,9 +114,77 @@ public class TreeNode {
                 break;
             case ";":
                 code += expr1.getCode();
-                if(expr2 != null){
+                if(expr2 != null) {
                     code += expr2.getCode();
                 }
+                break;
+            case "while":
+                int no_while = ++NB_WHILE;
+                int no_cond_while = ++NB_COND;
+                code += "debut_while_" + no_while + ":\n";
+                code += expr1.getCode(); //terminé par un jump sans route si cond false
+                code += "faux_cond_" + no_cond_while + "\n"; //on ajoute la route
+                code += "\tmov eax, 1\n";
+                code += "\tjmp sortie_cond_" + no_cond_while + "\n";
+                code += "faux_cond_" + no_cond_while + ":\n";
+                code += "\tmov eax, 0\n";
+                code += "sortie_cond_" + no_cond_while + ":\n";
+                code += "\tjz sortie_while_" + no_while + "\n";
+                code += expr2.getCode();
+                code += "\tjmp debut_while_" + no_while + "\n";
+                code += "sortie_while_" + no_while + ":\n";
+                break;
+            case "if":
+                int no_if = ++NB_IF;
+                code += expr1.getCode(); //terminé par un jump sans route si cond false
+                code += "else_" + no_if + "\n"; //on ajoute la route
+                code += expr2.getExpr1().getCode();
+                code += "\tjmp sortie_if_" + no_if + "\n";
+                code += "else_" + no_if + ":\n";
+                code += expr2.getExpr2().getCode();
+                code += "sortie_if_" + no_if +":\n";
+                break;
+            case "<":
+                code += expr1.getCode();
+                code += "\tpush eax\n";
+                code += expr2.getCode();
+                code += "\tpop ebx\n";
+                code += "\tsub eax, ebx\n";
+                code += "\tjle ";
+                break;
+            case "<=":
+                code += expr1.getCode();
+                code += "\tpush eax\n";
+                code += expr2.getCode();
+                code += "\tpop ebx\n";
+                code += "\tsub eax, ebx\n";
+                code += "\tjl ";
+                break;
+            case ">":
+                code += expr1.getCode();
+                code += "\tpush eax\n";
+                code += expr2.getCode();
+                code += "\tpop ebx\n";
+                code += "\tsub eax, ebx\n";
+                code += "\tjge ";
+                break;
+            case ">=":
+                code += expr1.getCode();
+                code += "\tpush eax\n";
+                code += expr2.getCode();
+                code += "\tpop ebx\n";
+                code += "\tsub eax, ebx\n";
+                code += "\tjg ";
+                break;
+            /*
+            case "not":
+                break;
+            case "or":
+                break;
+            case "and":
+                break;
+
+             */
         }
         return code;
     }
