@@ -39,6 +39,7 @@ Ce code est ensuite mis dans le fichier `code.asm` .
 
 Tester :
 ````shell
+java -cp .\build\libs\I805_TP2_Lambada.jar fr.usmb.m1isc.compilation.tp.Main .\test2.txt
 java -jar vm-0.9.jar code.asm --debug
 ````
 ---

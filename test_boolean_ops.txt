@@ -1,0 +1,43 @@
+// NOT //
+if not false
+then output true
+else output false;
+
+if not true
+then output false
+else output true;
+
+// AND //
+if false and false
+then output false
+else output true;
+
+if true and false
+then output false
+else output true;
+
+if false and true
+then output false
+else output true;
+
+if true and true
+then output true
+else output false;
+
+// OR //
+if false or false
+then output false
+else output true;
+
+if true or false
+then output true
+else output false;
+
+if false or true
+then output true
+else output false;
+
+if true or true
+then output true
+else output false;
+.

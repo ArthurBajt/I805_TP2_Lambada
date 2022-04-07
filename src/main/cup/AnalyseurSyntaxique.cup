@@ -35,7 +35,7 @@ parser code {:
 :};
 
 /* symboles terminaux */
-terminal PLUS, MOINS, MOINS_UNAIRE, MUL, DIV, MOD, NOT, OR, AND, PAR_G, PAR_D, SEMI, POINT, LET, INPUT, OUTPUT, IF, THEN, ELSE, WHILE, DO, EGAL, GT, GTE, LT, LTE, NIL, ERROR;
+terminal PLUS, MOINS, MOINS_UNAIRE, MUL, DIV, MOD, NOT, OR, AND, PAR_G, PAR_D, SEMI, POINT, LET, INPUT, OUTPUT, TRUE, FALSE, IF, THEN, ELSE, WHILE, DO, EGAL, GT, GTE, LT, LTE, NIL, ERROR;
 terminal Integer ENTIER;
 terminal String IDENT;
 /* non terminaux */
@@ -91,6 +91,8 @@ expr ::= NOT:op expr:e {: RESULT = new TreeNode("not",e,null); :}
        | INPUT {: RESULT = new Leaf("input"); :}
        | NIL {: RESULT = new Leaf("nil"); :}
        | ENTIER:n {: RESULT = new Leaf(new Integer(n)); :}
+       | TRUE {: RESULT = new Leaf(new Integer(1)); :}
+       | FALSE {: RESULT = new Leaf(new Integer(0)); :}
        | IDENT:id {: RESULT = new Leaf(new String(id)); :}
        | PAR_G sequence:e PAR_D {: RESULT=e; :}
        ;
