@@ -130,8 +130,8 @@ public class TreeNode {
                 break;
             case "if":
                 int no_if = ++NB_IF;
-                code += expr1.getCode(); //terminé par un jump sans route si cond false
-                code += "else_" + no_if + "\n"; //on ajoute la route
+                code += expr1.getCode();
+                code += "\tjz else_" + no_if + "\n";
                 code += expr2.getExpr1().getCode();
                 code += "\tjmp sortie_if_" + no_if + "\n";
                 code += "else_" + no_if + ":\n";
@@ -196,7 +196,7 @@ public class TreeNode {
                 break;
             case "not":
                 no_cond = ++NB_COND;
-                expr1.getCode();
+                code += expr1.getCode();
                 code += "\tjnz faux_cond_" + no_cond + "\n";
                 code += "\tmov eax, 1\n";
                 code += "\tjmp sortie_cond_" + no_cond + "\n";
@@ -204,13 +204,20 @@ public class TreeNode {
                 code += "\tmov eax, 0\n";
                 code += "sortie_cond_" + no_cond + ":\n";
                 break;
-            /*
             case "or":
+                no_cond = ++NB_COND;
+                code += expr1.getCode();
+                code += "\tjnz sortie_cond" + no_cond + "\n";
+                code += expr2.getCode();
+                code += "sortie_cond" + no_cond + ":\n";
                 break;
             case "and":
+                no_cond = ++NB_COND;
+                code += expr1.getCode();
+                code += "\tjz sortie_cond" + no_cond + "\n";
+                code += expr2.getCode();
+                code += "sortie_cond" + no_cond + ":\n";
                 break;
-
-             */
         }
         return code;
     }

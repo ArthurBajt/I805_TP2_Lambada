@@ -1,0 +1,11 @@
+let a = input;
+let b = input;
+let c = input;
+if(a<b and a<c)
+then (output a)
+else (
+    if(b<a and b<c)
+    then (output b)
+    else (output c)
+)
+.
