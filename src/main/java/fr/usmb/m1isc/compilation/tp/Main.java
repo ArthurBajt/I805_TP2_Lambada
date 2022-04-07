@@ -22,7 +22,7 @@ public class Main {
 		String code = ((TreeNode)s.value).compile();
 		System.out.println(code);
 
-		BufferedWriter writer = new BufferedWriter(new FileWriter( "code.asm", true ));
+		BufferedWriter writer = new BufferedWriter(new FileWriter( "code.asm", false ));
 		writer.append( code );
 		writer.close();
     }

@@ -57,6 +57,7 @@ public class TreeNode {
 
     public String getCode(){
         String code = "";
+        int no_cond = 0;
         switch(ope){
             case "let":
                 code += expr2.getCode();
@@ -120,15 +121,8 @@ public class TreeNode {
                 break;
             case "while":
                 int no_while = ++NB_WHILE;
-                int no_cond_while = ++NB_COND;
                 code += "debut_while_" + no_while + ":\n";
-                code += expr1.getCode(); //terminé par un jump sans route si cond false
-                code += "faux_cond_" + no_cond_while + "\n"; //on ajoute la route
-                code += "\tmov eax, 1\n";
-                code += "\tjmp sortie_cond_" + no_cond_while + "\n";
-                code += "faux_cond_" + no_cond_while + ":\n";
-                code += "\tmov eax, 0\n";
-                code += "sortie_cond_" + no_cond_while + ":\n";
+                code += expr1.getCode();
                 code += "\tjz sortie_while_" + no_while + "\n";
                 code += expr2.getCode();
                 code += "\tjmp debut_while_" + no_while + "\n";
@@ -136,8 +130,8 @@ public class TreeNode {
                 break;
             case "if":
                 int no_if = ++NB_IF;
-                code += expr1.getCode(); //terminé par un jump sans route si cond false
-                code += "else_" + no_if + "\n"; //on ajoute la route
+                code += expr1.getCode();
+                code += "\tjz else_" + no_if + "\n";
                 code += expr2.getExpr1().getCode();
                 code += "\tjmp sortie_if_" + no_if + "\n";
                 code += "else_" + no_if + ":\n";
@@ -145,46 +139,85 @@ public class TreeNode {
                 code += "sortie_if_" + no_if +":\n";
                 break;
             case "<":
+                no_cond = ++NB_COND;
                 code += expr1.getCode();
                 code += "\tpush eax\n";
                 code += expr2.getCode();
                 code += "\tpop ebx\n";
                 code += "\tsub eax, ebx\n";
-                code += "\tjle ";
+                code += "\tjle faux_cond_" + no_cond + "\n";
+                code += "\tmov eax, 1\n";
+                code += "\tjmp sortie_cond_" + no_cond + "\n";
+                code += "faux_cond_" + no_cond + ":\n";
+                code += "\tmov eax, 0\n";
+                code += "sortie_cond_" + no_cond + ":\n";
                 break;
             case "<=":
+                no_cond = ++NB_COND;
                 code += expr1.getCode();
                 code += "\tpush eax\n";
                 code += expr2.getCode();
                 code += "\tpop ebx\n";
                 code += "\tsub eax, ebx\n";
-                code += "\tjl ";
+                code += "\tjl faux_cond_" + no_cond + "\n";
+                code += "\tmov eax, 1\n";
+                code += "\tjmp sortie_cond_" + no_cond + "\n";
+                code += "faux_cond_" + no_cond + ":\n";
+                code += "\tmov eax, 0\n";
+                code += "sortie_cond_" + no_cond + ":\n";
                 break;
             case ">":
+                no_cond = ++NB_COND;
                 code += expr1.getCode();
                 code += "\tpush eax\n";
                 code += expr2.getCode();
                 code += "\tpop ebx\n";
                 code += "\tsub eax, ebx\n";
-                code += "\tjge ";
+                code += "\tjge faux_cond_" + no_cond + "\n";
+                code += "\tmov eax, 1\n";
+                code += "\tjmp sortie_cond_" + no_cond + "\n";
+                code += "faux_cond_" + no_cond + ":\n";
+                code += "\tmov eax, 0\n";
+                code += "sortie_cond_" + no_cond + ":\n";
                 break;
             case ">=":
+                no_cond = ++NB_COND;
                 code += expr1.getCode();
                 code += "\tpush eax\n";
                 code += expr2.getCode();
                 code += "\tpop ebx\n";
                 code += "\tsub eax, ebx\n";
-                code += "\tjg ";
+                code += "\tjg faux_cond_" + no_cond + "\n";
+                code += "\tmov eax, 1\n";
+                code += "\tjmp sortie_cond_" + no_cond + "\n";
+                code += "faux_cond_" + no_cond + ":\n";
+                code += "\tmov eax, 0\n";
+                code += "sortie_cond_" + no_cond + ":\n";
                 break;
-            /*
             case "not":
+                no_cond = ++NB_COND;
+                code += expr1.getCode();
+                code += "\tjnz faux_cond_" + no_cond + "\n";
+                code += "\tmov eax, 1\n";
+                code += "\tjmp sortie_cond_" + no_cond + "\n";
+                code += "faux_cond_" + no_cond + ":\n";
+                code += "\tmov eax, 0\n";
+                code += "sortie_cond_" + no_cond + ":\n";
                 break;
             case "or":
+                no_cond = ++NB_COND;
+                code += expr1.getCode();
+                code += "\tjnz sortie_cond" + no_cond + "\n";
+                code += expr2.getCode();
+                code += "sortie_cond" + no_cond + ":\n";
                 break;
             case "and":
+                no_cond = ++NB_COND;
+                code += expr1.getCode();
+                code += "\tjz sortie_cond" + no_cond + "\n";
+                code += expr2.getCode();
+                code += "sortie_cond" + no_cond + ":\n";
                 break;
-
-             */
         }
         return code;
     }
