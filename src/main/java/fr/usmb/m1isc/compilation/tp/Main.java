@@ -20,9 +20,10 @@ public class Main {
 		parser p = new parser (yy);
 		Symbol s = p.parse( );
 		String code = ((TreeNode)s.value).compile();
-		System.out.println(code);
 
-		BufferedWriter writer = new BufferedWriter(new FileWriter( "code.asm", false ));
+		String filename = args[0].substring(args[0].lastIndexOf("\\")+1,args[0].lastIndexOf("."));
+		BufferedWriter writer = new BufferedWriter(new FileWriter( filename+".asm", false ));
+
 		writer.append( code );
 		writer.close();
     }

@@ -1,0 +1,2 @@
+output true ? 1 : 0;
+output false ? 1 : 0;

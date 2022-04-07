@@ -12,7 +12,7 @@ On a décider de creer 2 classes :
 
 tester :
 ```shell
-java -cp .\build\libs\I805_TP2_Lambada.jar fr.usmb.m1isc.compilation.tp.Main .\test1.txt
+java -cp .\build\libs\I805_TP2_Lambada.jar fr.usmb.m1isc.compilation.tp.Main .\code_files\test.txt
 ```
 
 ---
@@ -23,7 +23,7 @@ Cependant on ne peut pour l'instant pas vérifier la cohérence du code.
 
 tester :
 ```shell
-java -cp .\build\libs\I805_TP2_Lambada.jar fr.usmb.m1isc.compilation.tp.Main .\test2.txt
+java -cp .\build\libs\I805_TP2_Lambada.jar fr.usmb.m1isc.compilation.tp.Main .\code_files\pgcd.txt
 ```
 
 
@@ -34,12 +34,12 @@ de celui ci.
 
 Pour avoir le code d'un arbre sous forme de *String* on appel `compile()` 
 sur la racine de l'arbre. 
-Ce code est ensuite mis dans le fichier `code.asm` .
+Ce code est ensuite mis dans un fichier `filename.asm` .
 
 
 Tester :
 ````shell
-java -cp .\build\libs\I805_TP2_Lambada.jar fr.usmb.m1isc.compilation.tp.Main .\test2.txt
-java -jar vm-0.9.jar code.asm --debug
+java -cp .\build\libs\I805_TP2_Lambada.jar fr.usmb.m1isc.compilation.tp.Main .\code_files\pgcd.txt
+java -jar vm-0.9.jar pgcd.asm
 ````
 ---

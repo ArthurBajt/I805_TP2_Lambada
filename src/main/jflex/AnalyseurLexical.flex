@@ -54,6 +54,8 @@ comment     = {comment1}|{comment2}
 {while}     { return new Symbol(sym.WHILE, yyline, yycolumn) ;}
 {do}        { return new Symbol(sym.DO, yyline, yycolumn) ;}
 {if}        { return new Symbol(sym.IF, yyline, yycolumn) ;}
+"?"         { return new Symbol(sym.IFTERN, yyline, yycolumn) ;}
+":"         { return new Symbol(sym.ELSETERN, yyline, yycolumn) ;}
 {then}      { return new Symbol(sym.THEN, yyline, yycolumn) ;}
 {else}      { return new Symbol(sym.ELSE, yyline, yycolumn) ;}
 {nil}       { return new Symbol(sym.NIL, yyline, yycolumn) ;}

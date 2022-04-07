@@ -35,7 +35,13 @@ parser code {:
 :};
 
 /* symboles terminaux */
-terminal PLUS, MOINS, MOINS_UNAIRE, MUL, DIV, MOD, NOT, OR, AND, PAR_G, PAR_D, SEMI, POINT, LET, INPUT, OUTPUT, TRUE, FALSE, IF, THEN, ELSE, WHILE, DO, EGAL, GT, GTE, LT, LTE, NIL, ERROR;
+terminal PLUS, MOINS, MOINS_UNAIRE, MUL, DIV, MOD;
+terminal NOT, OR, AND;
+terminal PAR_G, PAR_D, SEMI, POINT;
+terminal LET, INPUT, OUTPUT;
+terminal TRUE, FALSE;
+terminal IF, THEN, ELSE, IFTERN, ELSETERN, WHILE, DO;
+terminal EGAL, GT, GTE, LT, LTE, NIL, ERROR;
 terminal Integer ENTIER;
 terminal String IDENT;
 /* non terminaux */
@@ -69,6 +75,7 @@ expression ::= expr:e {: RESULT = e; :}
              | LET IDENT:nom EGAL expr:e {: RESULT = new TreeNode("let",new Leaf(new String(nom)), e); :}
              | WHILE expr:cond DO expression:e {: RESULT = new TreeNode("while",cond, e); :}
              | IF expr:cond THEN expression:a1 ELSE expression:a2 {: RESULT = new TreeNode("if",cond, new TreeNode("then",a1,a2)); :}
+             | expr:cond IFTERN expression:a1 ELSETERN expression:a2 {: RESULT = new TreeNode("if",cond, new TreeNode("then",a1,a2)); :}
              | error // reprise d'erreurs
              ;
 
